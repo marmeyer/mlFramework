@@ -45,7 +45,7 @@ class KerasObject():
 
         self.models = []
         for model in tmp_dict["models"]:
-            self.models.append( lm(model) )
+            self.models.append( lm(str(model)) )
 
     def save(self, filename):
         placeholders = []
@@ -147,7 +147,7 @@ class KerasObject():
 
     def testSingle(self, test,fold ):
 
-        prediction = DataFrame( self.models[fold].predict(test[self.variables].values) )
+        prediction = DataFrame( self.models[fold].predict(test[self.variables].values, batch_size = 1024) )
 
         return DataFrame(dtype = float, data = {"predicted_class":prediction.idxmax(axis=1).values,
                                  "predicted_prob": prediction.max(axis=1).values } )
