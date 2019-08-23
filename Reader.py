@@ -351,7 +351,9 @@ class Reader():
             snowflakes.append("THU*")
             snowflakes.append("*NNLO*")
 
-        branches = list(set( self.config["variables"] + self.config[ "weights" ] + snowflakes + self.addvar ))
+        self.addvar.append("njets")
+        branches = list(set( self.config["variables"] + self.config[ "weights" ] + snowflakes + self.addvar))
+
         if "EMB" in sample_path and "sf*" in branches:
             branches.remove("sf*")
         
